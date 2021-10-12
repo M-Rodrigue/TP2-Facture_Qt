@@ -39,38 +39,44 @@ int main()
     cout << "2 = 10%" << endl;
     cout << "3 = 5.5%" << endl;
     cout << "4 = 2.1%" << endl;
+
     // car | char | save the character
     char car = getch();
+    cin >> car;
     switch (car) {
     case '1':
         pourcentVAT = 20;
+        break;
     case '2':
         pourcentVAT = 10;
+        break;
     case '3':
         pourcentVAT = 5.5;
+        break;
     case '4':
         pourcentVAT = 2.1;
+        break;
     }
 
     // totalPrice | double | calculate the total price without VAT
     double totalPrice = quantity*price;
 
-    // totalPriceVAT | double | calculate the total price with VAT
-    double totalPriceVAT = totalPrice*pourcentVAT/100;
-
     // totalVAT | double | calculate the total VAT
-    double totalVAT = pourcentVAT*totalPrice/100;
+    double totalVAT = totalPrice*pourcentVAT/100;
+
+    // totalPriceVAT | double | calculate the total price with VAT
+    double totalPriceVAT = totalPrice+(pourcentVAT/100*totalPrice);
 
     // billingFile | ofstream | create the billing file with all informations
     ofstream billingFile("Billing.txt");
-    billingFile << "Compagnie DORIAN-CFA \n";
-    billingFile << "74 av. Philippe Auguste \n";
-    billingFile << "75011 PARIS \n";
-    billingFile << "N. Siret 54678-1234 \n\n";
-    billingFile << "Consumer : " << consumer << "\n\n";
-    billingFile << "Product : " << product << " | Qantity : " << quantity << " | Price without VAT : " << price << " | Total price without VAT : " << totalPrice << " | Total price : " << totalPriceVAT << endl << endl;
-    billingFile << "TOTAL TO PAY ......... " << totalPriceVAT << endl;
-    billingFile << "   VAT ......... " << totalVAT;
+    billingFile << "Compagnie DORIAN-CFA" << endl;
+    billingFile << "74 av. Philippe Auguste" << endl;
+    billingFile << "75011 PARIS" << endl;
+    billingFile << "N. Siret 54678-1234" << endl << endl;
+    billingFile << "Consumer : " << consumer << endl << endl;
+    billingFile << "Product : " << product << " | Qantity : " << quantity << " | Price without VAT : " << price << "€" << " | Total price without VAT : " << totalPrice << "€" << " | Total price : " << totalPriceVAT << "€" << endl << endl;
+    billingFile << "TOTAL TO PAY ......... " << totalPriceVAT << "€" << endl;
+    billingFile << "VAT " << "(" << pourcentVAT << "%)" << " ............ " << totalVAT << "€";
     billingFile.close();
 
     return 0;
